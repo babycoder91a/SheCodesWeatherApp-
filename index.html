@@ -47,74 +47,74 @@
       .weather-container {
         background-color: #ffffff;
         width: 100%;
-        max-width: 1200px;
+        max-width: 800px;
         border-radius: 15px;
         box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-        padding: 40px;
+        padding: 30px;
         box-sizing: border-box;
         position: relative;
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
         color: #4c6ef5;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         font-weight: 700;
       }
 
       #search-box {
         width: 100%;
-        padding: 10px;
+        padding: 8px;
         margin-bottom: 10px;
-        font-size: 1.2rem;
+        font-size: 1rem;
         border-radius: 5px;
         border: 2px solid #4c6ef5;
       }
 
       #search-btn {
-        padding: 10px 20px;
+        padding: 8px 15px;
         margin-bottom: 10px;
         background-color: #4c6ef5;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       #clear-btn {
-        padding: 10px 20px;
+        padding: 8px 15px;
         background-color: #f44336;
         color: white;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
 
       #weather-info {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        gap: 20px;
-        margin-top: 30px;
+        gap: 15px;
+        margin-top: 25px;
       }
 
       .weather-card {
         background-color: #ffffff;
-        border-radius: 15px;
-        padding: 20px;
+        border-radius: 10px;
+        padding: 15px;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.05);
         text-align: center;
-        width: calc(20% - 20px);
-        min-width: 250px;
+        width: calc(33% - 15px);
+        min-width: 220px;
         position: relative;
         overflow: hidden;
         transition: transform 0.3s ease, background 0.8s ease;
       }
 
       .weather-card:hover {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
         background: linear-gradient(
           45deg,
           red,
@@ -139,37 +139,43 @@
       }
 
       .weather-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         color: #1e3a8a;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+      }
+
+      .weather-card .day-of-week {
+        font-size: 1rem;
+        color: #4b5563;
+        margin-bottom: 8px;
       }
 
       .weather-card .temperature {
-        font-size: 2.8rem;
+        font-size: 2rem;
         color: #333;
-        margin-bottom: 10px;
+        margin-bottom: 8px;
       }
 
       .weather-card .description {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
         color: #4b5563;
       }
 
       .weather-card .wind-speed {
-        font-size: 1.2rem;
-        margin-top: 10px;
+        font-size: 1rem;
+        margin-top: 8px;
         color: #555;
       }
 
       .weather-icon {
-        width: 60px;
-        height: 60px;
-        margin-top: 10px;
+        width: 45px;
+        height: 45px;
+        margin-top: 8px;
       }
 
       .error-message {
         color: red;
-        font-size: 1.2rem;
+        font-size: 1rem;
         margin-bottom: 20px;
         display: none;
       }
@@ -250,6 +256,13 @@
       const searchBtn = document.getElementById("search-btn");
       const clearBtn = document.getElementById("clear-btn");
 
+      // Function to return the day of the week based on the date
+      function getDayOfWeek(dateString) {
+        const date = new Date(dateString);
+        const options = { weekday: "long" };
+        return date.toLocaleDateString("en-US", options);
+      }
+
       // Function to return an emoji based on weather condition
       function getWeatherEmoji(condition) {
         switch (condition.toLowerCase()) {
@@ -310,10 +323,12 @@
           forecast.forEach((day) => {
             const condition = day.day.condition.text;
             const emoji = getWeatherEmoji(condition);
+            const dayOfWeek = getDayOfWeek(day.date); // Get the day of the week
 
             const weatherCard = `
               <div class="weather-card" id="card-${day.date}">
                 <h3>${location}</h3>
+                <div class="day-of-week">${dayOfWeek}</div> <!-- Display day of the week -->
                 <div class="temperature">${day.day.avgtemp_c}°C ${emoji}</div>
                 <div class="description">${condition}</div>
                 <div class="wind-speed">Wind: ${day.day.maxwind_kph} kph</div>
@@ -386,4 +401,3 @@
     </script>
   </body>
 </html>
-
